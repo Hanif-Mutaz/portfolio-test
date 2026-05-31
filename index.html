@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hanif Mu'taz — Full-Stack Developer & System Builder</title>
+  <meta name="description"
+    content="Full-Stack Developer dan System Analyst yang membangun infrastruktur digital untuk operasional manufaktur. Main PIC ConMas di PT Hirose Electric Indonesia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif'],
+            mono: ['DM Mono', 'monospace'],
+          },
+          colors: {
+            ink: { 950: '#060810', 900: '#0a0d18', 800: '#0f1422', 700: '#151c2e', 600: '#1d2640' },
+            cyan: { 400: '#22d3ee', 500: '#06b6d4', 300: '#67e8f9' },
+          },
+          animation: {
+            'float': 'float 8s ease-in-out infinite',
+            'pulse-slow': 'pulse 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-14px)' } },
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #060810;
+      color: #e2e8f0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Syne', sans-serif;
+    }
+
+    .mono {
+      font-family: 'DM Mono', monospace;
+    }
+
+    ::selection {
+      background: #22d3ee33;
+      color: #67e8f9;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #060810;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #22d3ee44;
+      border-radius: 99px;
+    }
+
+    .nav-glass {
+      background: rgba(10, 13, 24, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .grid-bg {
+      background-image: linear-gradient(rgba(34, 211, 238, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .orb-cyan {
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.18) 0%, transparent 70%);
+    }
+
+    .orb-blue {
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+    }
+
+    .card-base {
+      background: rgba(15, 20, 34, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .card-base:hover {
+      border-color: rgba(34, 211, 238, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .card-accent {
+      border-left: 3px solid #22d3ee;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      border: 1px solid rgba(34, 211, 238, 0.25);
+      color: #67e8f9;
+      background: rgba(34, 211, 238, 0.06);
+    }
+
+    .tag-amber {
+      border-color: rgba(251, 191, 36, 0.3);
+      color: #fcd34d;
+      background: rgba(251, 191, 36, 0.06);
+    }
+
+    .tag-green {
+      border-color: rgba(52, 211, 153, 0.3);
+      color: #6ee7b7;
+      background: rgba(52, 211, 153, 0.06);
+    }
+
+    .section-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #22d3ee;
+      letter-spacing: .12em;
+    }
+
+    .skill-pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      transition: all 0.2s;
+    }
+
+    .skill-pill:hover {
+      background: rgba(34, 211, 238, 0.08);
+      border-color: rgba(34, 211, 238, 0.2);
+      color: #67e8f9;
+    }
+
+    .tl-line {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .tl-line::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: -24px;
+      width: 1px;
+      background: linear-gradient(to bottom, #22d3ee, rgba(34, 211, 238, 0.1));
+    }
+
+    .tl-dot {
+      position: absolute;
+      left: -5px;
+      top: 8px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #22d3ee;
+      box-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
+    }
+
+    .cert-card {
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.3s;
+    }
+
+    .cert-card:hover {
+      border-color: rgba(34, 211, 238, 0.25);
+      transform: translateY(-3px);
+    }
+
+    .cert-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .cert-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .cert-info {
+      padding: 10px 12px;
+      background: rgba(15, 20, 34, 0.9);
+    }
+
+    #certModal {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(6, 8, 16, 0.92);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    #certModal.open {
+      display: flex;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .inp {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #e2e8f0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+
+    .inp:focus {
+      border-color: rgba(34, 211, 238, 0.4);
+    }
+
+    .inp::placeholder {
+      color: #475569;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #22d3ee;
+      color: #060810;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #67e8f9;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+      background: transparent;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(34, 211, 238, 0.3);
+      color: #67e8f9;
+      background: rgba(34, 211, 238, 0.05);
+    }
+
+    .impact {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #34d399;
+    }
+
+    .navlink {
+      color: #64748b;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: 'DM Sans';
+    }
+
+    .navlink:hover,
+    .navlink.active {
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.05);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen overflow-x-hidden">
+
+  <div class="pointer-events-none fixed inset-0 -z-10 grid-bg"></div>
+  <div class="pointer-events-none fixed -z-10 top-0 left-1/4 w-[600px] h-[600px] orb-cyan opacity-60 animate-float">
+  </div>
+  <div class="pointer-events-none fixed -z-10 bottom-0 right-1/4 w-[500px] h-[500px] orb-blue opacity-40"></div>
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 nav-glass">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+      <a href="#home" class="flex items-center gap-2">
+        <div
+          class="w-7 h-7 rounded-lg bg-cyan-500 flex items-center justify-center font-display font-800 text-ink-950 text-sm">
+          M</div>
+        <span class="font-display font-600 text-sm text-slate-200">Mu'taz</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="#about" class="navlink">tentang</a>
+        <a href="#projects" class="navlink">projects</a>
+        <a href="#skills" class="navlink">skills</a>
+        <a href="#experience" class="navlink">pengalaman</a>
+        <a href="#certificates" class="navlink">sertifikat</a>
+        <a href="#contact" class="navlink">kontak</a>
+      </nav>
+      <a href="#contact" class="btn-primary text-sm py-2 px-4">
+        hire me
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <path d="M7 17L17 7M8 7h9v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="home" class="pt-20 pb-24 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <div
+              class="inline-flex items-center gap-2 text-xs mono border border-cyan-400/20 bg-cyan-400/05 text-cyan-300 px-3 py-1.5 rounded-full mb-6">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse-slow"></span>
+              terbuka untuk peluang baru
+            </div>
+            <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-800 leading-[0.95] tracking-tight mb-6">
+              <span class="text-slate-400 block">Hanif Mu'taz</span>
+              <span class="text-white block">Noor Afiyf</span>
+              <span class="block text-3xl sm:text-4xl mt-2"
+                style="background: linear-gradient(90deg, #22d3ee, #67e8f9); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">System
+                Builder.</span>
+            </h1>
+            <p class="text-slate-400 text-lg leading-relaxed mb-8 max-w-lg">
+              Saya membangun sistem yang membuat tim manufaktur bekerja lebih cerdas —
+              dari dashboard real-time hingga integrasi mesin IoT.
+              <span class="text-slate-300">Full-stack developer. System analyst. Process improvement.</span>
+            </p>
+            <div class="flex flex-wrap gap-3 mb-10">
+              <a href="#projects" class="btn-primary">lihat project saya</a>
+              <a href="https://drive.google.com/file/d/1JRWMyftqHYToigmqVrvD4gVPxYceJaZ4/view" target="_blank"
+                class="btn-ghost">
+                download CV
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 3v13M7 12l5 5 5-5M4 21h16" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" />
+                </svg>
+              </a>
+              <a href="https://github.com/hanifmutaz" target="_blank" class="btn-ghost">
+                GitHub
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 17L17 7M8 7h9v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </a>
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="card-base p-4 text-center">
+                <div class="font-display text-2xl font-700 text-white">4+</div>
+                <div class="text-xs text-slate-500 mt-1">sistem production</div>
+              </div>
+              <div class="card-base p-4 text-center">
+                <div class="font-display text-2xl font-700 text-white">80%</div>
+                <div class="text-xs text-slate-500 mt-1">efisiensi waktu</div>
+              </div>
+              <div class="card-base p-4 text-center">
+                <div class="font-display text-2xl font-700 text-white">15+</div>
+                <div class="text-xs text-slate-500 mt-1">sertifikasi</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- role card -->
+          <div class="relative">
+            <div class="absolute -inset-8 orb-cyan opacity-40 rounded-full blur-2xl animate-float"></div>
+            <div class="card-base p-6 relative">
+              <div class="section-num mb-4">// posisi saat ini</div>
+              <div class="flex items-start gap-4 mb-6 pb-6 border-b border-white/05">
+                <div
+                  class="w-11 h-11 rounded-xl bg-cyan-500/15 border border-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#22d3ee" stroke-width="1.6" />
+                    <path d="M9 22V12h6v10" stroke="#22d3ee" stroke-width="1.6" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-white font-display font-600 text-sm">IT Staff — Kaizen Dept.</div>
+                  <div class="text-cyan-400 text-xs mono mt-0.5">PT. Hirose Electric Indonesia</div>
+                  <div class="text-slate-500 text-xs mt-1">Jan 2026 – sekarang · Bekasi</div>
+                </div>
+              </div>
+              <div class="space-y-3 mb-6">
+                <div class="text-xs text-slate-400 font-display uppercase tracking-wider mb-2">sedang dikerjakan</div>
+                <div class="flex items-start gap-3">
+                  <span class="tag mt-0.5">live</span>
+                  <div>
+                    <div class="text-sm text-slate-200">Dashboard Produksi Real-Time</div>
+                    <div class="text-xs text-slate-500 mono">Express.js · React · PostgreSQL</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="tag tag-amber mt-0.5">WIP</span>
+                  <div>
+                    <div class="text-sm text-slate-200">PM Monitor Web App</div>
+                    <div class="text-xs text-slate-500 mono">CodeIgniter 4 · MySQL</div>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="tag tag-amber mt-0.5">R&D</span>
+                  <div>
+                    <div class="text-sm text-slate-200">Integrasi Mesin Keyence → iReporter</div>
+                    <div class="text-xs text-slate-500 mono">IoT · Middleware · RS232/LAN</div>
+                  </div>
+                </div>
+              </div>
+              <div class="pt-4 border-t border-white/05">
+                <div class="text-xs text-slate-400 font-display uppercase tracking-wider mb-2">main PIC dari</div>
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse-slow"></div>
+                  <span class="text-sm text-slate-200">Sistem ConMas (iReporter) — end-to-end</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-20 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+          <div class="reveal">
+            <div class="section-num mb-2">01 — tentang saya</div>
+            <h2 class="font-display text-4xl font-700 text-white mb-6 leading-tight">Bukan sekadar IT.<br />Saya
+              membangun sistem.</h2>
+            <div class="space-y-4 text-slate-400 leading-relaxed">
+              <p>
+                Perjalanan saya tidak dimulai dari dunia programming. Saya mulai sebagai guru, lalu EDC field
+                technician,
+                lalu IT operator — setiap peran mengajarkan sesuatu yang berbeda tentang bagaimana sistem, manusia, dan
+                proses saling berkaitan.
+              </p>
+              <p>
+                Ketika bergabung di PT Hirose Electric Indonesia pada Januari 2026, saya dipercaya sebagai
+                <span class="text-slate-200">Main PIC sistem ConMas (iReporter)</span> — sistem data QA inti untuk
+                seluruh lantai produksi.
+                Dalam beberapa bulan, saya mengembangkan dashboard produksi dan sistem monitoring yang mengubah proses
+                rekap manual menjadi monitoring data real-time lintas departemen.
+              </p>
+              <p>
+                Saya bekerja di persimpangan antara <span class="text-slate-200">operasional manufaktur, sistem data,
+                  dan pengembangan software.</span>
+                Fokus saya bukan sekadar membangun aplikasi, tetapi membangun sistem yang menghubungkan manusia, proses,
+                data, dan operasional manufaktur.
+                Kombinasi itu — memahami bisnis dari dalam, lalu membangun alatnya sendiri — itulah yang membedakan
+                sistem yang sekadar berjalan dengan sistem yang benar-benar dipakai orang.
+              </p>
+            </div>
+          </div>
+
+          <!-- timeline -->
+          <div class="reveal space-y-6">
+            <div class="section-num mb-2">// perjalanan karir</div>
+            <div class="space-y-6">
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="mono text-xs text-cyan-400 mb-1">2026 — sekarang</div>
+                <div class="text-white font-display font-600">IT Staff · Kaizen @ Hirose Electric</div>
+                <div class="text-slate-400 text-sm mt-1">Membangun infrastruktur digital manufaktur — sistem PM,
+                  dashboard produksi, riset IoT Keyence</div>
+              </div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="mono text-xs text-cyan-400 mb-1">2025 — sekarang</div>
+                <div class="text-white font-display font-600">Part-time IT Support @ PT. Geoho Tooling Indonesia</div>
+                <div class="text-slate-400 text-sm mt-1">Instalasi & konfigurasi OS, troubleshooting jaringan, file
+                  sharing SMB, backup & recovery, upgrade hardware</div>
+              </div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="mono text-xs text-cyan-400 mb-1">Okt — Des 2025</div>
+                <div class="text-white font-display font-600">Project Support Admin @ DCT Total Solution</div>
+                <div class="text-slate-400 text-sm mt-1">Otomasi Excel-VBA untuk pelaporan proyek dan keuangan —
+                  integrasi multi-database, auto export PDF</div>
+              </div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="mono text-xs text-cyan-400 mb-1">2023 — sekarang</div>
+                <div class="text-white font-display font-600">S1 Teknik Informatika @ Universitas Bani Saleh</div>
+                <div class="text-slate-400 text-sm mt-1">Bootcamp: Back-End Developer (Dicoding × DBS Foundation 2023)
+                </div>
+              </div>
+              <div class="tl-line">
+                <div class="tl-dot"></div>
+                <div class="mono text-xs text-cyan-400 mb-1">2021 — 2025</div>
+                <div class="text-white font-display font-600">Guru @ SD Islam Al Anshar</div>
+                <div class="text-slate-400 text-sm mt-1">Membangun sistem input insentif berbasis web (PHP + MySQL)
+                  dengan multi-role auth — error manual berkurang ±30%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-20 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-12 reveal">
+          <div class="section-num mb-2">02 — projects</div>
+          <h2 class="font-display text-4xl font-700 text-white">Sistem yang saya bangun<br />dan benar-benar dipakai.
+          </h2>
+        </div>
+
+        <div class="space-y-6">
+
+          <!-- PM Monitor -->
+          <div class="card-base card-accent p-6 sm:p-8 reveal">
+            <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+              <div>
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="tag">production</span>
+                  <span class="tag tag-green">live</span>
+                </div>
+                <h3 class="font-display text-2xl font-700 text-white">PM Monitoring System</h3>
+                <div class="mono text-xs text-slate-500 mt-1">Excel VBA · PostgreSQL · ConMas · Multi-view Dashboard
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="impact text-lg font-700">↓ 80%</div>
+                <div class="text-xs text-slate-500">waktu monitoring</div>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <div class="text-sm text-slate-300 leading-relaxed mb-4">
+                  Mesin-mesin di lantai produksi tidak punya visibilitas terpusat untuk Preventive Maintenance.
+                  Teknisi harus berjalan ke setiap mesin satu per satu untuk mengecek status —
+                  proses manual yang sering menyebabkan jadwal terlewat dan berisiko bagi produksi.
+                </div>
+                <div class="text-sm text-slate-300 leading-relaxed">
+                  Saya memetakan kebutuhan tiap level stakeholder, membersihkan data counter mesin yang tidak konsisten,
+                  dan membangun Excel-VBA macro yang menghitung jadwal PM otomatis dari data counter ConMas.
+                  Hasilnya: satu dashboard terpusat yang menampilkan status OK / Warning / Danger / Overdue
+                  untuk semua mesin sekaligus.
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div class="text-xs text-slate-400 font-display uppercase tracking-wider">dampak nyata</div>
+                <div class="card-base p-3 flex items-center gap-3">
+                  <div class="w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
+                  <span class="text-sm text-slate-300">Waktu monitoring: 1–2 jam → beberapa menit</span>
+                </div>
+                <div class="card-base p-3 flex items-center gap-3">
+                  <div class="w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
+                  <span class="text-sm text-slate-300">Risiko keterlambatan PM berkurang ±70–80%</span>
+                </div>
+                <div class="card-base p-3 flex items-center gap-3">
+                  <div class="w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
+                  <span class="text-sm text-slate-300">Puluhan mesin terpantau dalam satu layar</span>
+                </div>
+                <div class="card-base p-3 flex items-center gap-3">
+                  <div class="w-2 h-2 rounded-full bg-cyan-400 flex-shrink-0"></div>
+                  <span class="text-sm text-slate-300">Management view untuk keputusan eksekutif</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Produksi -->
+          <div class="card-base card-accent p-6 sm:p-8 reveal">
+            <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+              <div>
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="tag">full-stack</span>
+                  <span class="tag tag-green">live</span>
+                </div>
+                <h3 class="font-display text-2xl font-700 text-white">Dashboard Produksi Real-Time</h3>
+                <div class="mono text-xs text-slate-500 mt-1">Express.js · React · PostgreSQL · ConMas DB · Multi-shift
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="impact text-lg font-700">↓ 60–80%</div>
+                <div class="text-xs text-slate-500">waktu rekap</div>
+              </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <div class="text-sm text-slate-300 leading-relaxed mb-4">
+                  Data produksi tersimpan di ConMas tapi tidak punya tampilan visual apapun.
+                  Untuk tahu output vs target, harus buka data mentah secara manual —
+                  lambat, bergantung satu orang, dan selalu terlambat untuk koreksi.
+                </div>
+                <div class="text-sm text-slate-300 leading-relaxed mb-3">
+                  Semua level organisasi kini melihat data produksi yang sama secara real-time sehingga deviasi target
+                  dapat diidentifikasi dan ditindaklanjuti jauh lebih cepat — tanpa menunggu rekap manual dari satu
+                  orang.
+                </div>
+                <div class="text-sm text-slate-300 leading-relaxed">
+                  Dibangun menggunakan Express.js, React, dan PostgreSQL — backend menangani multi-view query lintas 3
+                  shift dengan logic kolom dinamis (Jumat vs weekday), WIB timezone handling, dan 4 endpoint terpisah.
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div class="text-xs text-slate-400 font-display uppercase tracking-wider">highlight teknis</div>
+                <div class="card-base p-3">
+                  <div class="mono text-xs text-cyan-400 mb-1">backend</div>
+                  <div class="text-sm text-slate-300">UNION ALL multi-shift queries, dynamic column mapping (Jumat vs
+                    weekday), 4 endpoints</div>
+                </div>
+                <div class="card-base p-3">
+                  <div class="mono text-xs text-cyan-400 mb-1">frontend</div>
+                  <div class="text-sm text-slate-300">Arsitektur komponen React, custom hooks, tampilan operator /
+                    supervisor / manajemen</div>
+                </div>
+                <div class="card-base p-3">
+                  <div class="mono text-xs text-cyan-400 mb-1">dampak</div>
+                  <div class="text-sm text-slate-300">Deviasi terdeteksi lebih awal, semua level baca data live yang
+                    sama</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WIP + R&D -->
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="card-base p-6 reveal">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="tag tag-amber">WIP</span>
+                <span class="mono text-xs text-slate-500">CodeIgniter 4 · MySQL</span>
+              </div>
+              <h3 class="font-display text-xl font-700 text-white mb-2">PM Monitor Web App</h3>
+              <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                Migrasi PM Monitoring System ke platform web menggunakan CI4 sebagai backend.
+                Dirancang iPad-friendly untuk akses langsung di lantai produksi.
+                Mencakup desain arsitektur DB, setup integrasi ODBC, dan UAT ke direktur.
+              </p>
+              <div class="mono text-xs text-slate-500">Target: eliminasi ketergantungan Excel sepenuhnya</div>
+            </div>
+            <div class="card-base p-6 reveal">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="tag tag-amber">R&D</span>
+                <span class="mono text-xs text-slate-500">IoT · Middleware · RS232/LAN</span>
+              </div>
+              <h3 class="font-display text-xl font-700 text-white mb-2">Integrasi Mesin Keyence</h3>
+              <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                Riset dan perancangan pipeline data langsung dari mesin Keyence ke sistem iReporter iPad via middleware.
+                Mencakup mapping protokol komunikasi, desain flow integrasi, dan uji koneksi.
+              </p>
+              <div class="mono text-xs text-slate-500">Target: data mesin masuk otomatis ke check sheet digital</div>
+            </div>
+          </div>
+
+          <!-- Completed -->
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="card-base p-6 reveal">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="tag">selesai</span>
+                <span class="mono text-xs text-slate-500">PHP · MySQL · Multi-role Auth</span>
+              </div>
+              <h3 class="font-display text-xl font-700 text-white mb-2">Sistem Input Insentif PAT</h3>
+              <p class="text-sm text-slate-400 leading-relaxed">
+                Dibangun untuk SD Islam Al Anshar — aplikasi web input insentif guru (PAT) dengan multi-role
+                authentication.
+                Menggantikan proses Excel manual, error berkurang ±30%.
+              </p>
+            </div>
+            <div class="card-base p-6 reveal">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="tag">selesai</span>
+                <span class="mono text-xs text-slate-500">Excel VBA · XLOOKUP · LET</span>
+              </div>
+              <h3 class="font-display text-xl font-700 text-white mb-2">Otomasi Laporan Proyek</h3>
+              <p class="text-sm text-slate-400 leading-relaxed">
+                Untuk PT DCT Total Solution — auto-SPK generator, otomasi uang jalan, dashboard progress.
+                Database 5-sheet terintegrasi menggunakan XLOOKUP, LET, Named Range + auto-export PDF.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="py-20 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-12 reveal">
+          <div class="section-num mb-2">03 — skills</div>
+          <h2 class="font-display text-4xl font-700 text-white">Tech stack</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+          <div class="card-base p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+              <div class="mono text-xs text-cyan-400">backend</div>
+            </div>
+            <div class="flex flex-wrap gap-2"><span class="skill-pill">Node.js</span><span
+                class="skill-pill">Express.js</span><span class="skill-pill">CodeIgniter 4</span><span
+                class="skill-pill">PHP</span><span class="skill-pill">REST API</span></div>
+          </div>
+          <div class="card-base p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-2 h-2 rounded-full bg-purple-400"></div>
+              <div class="mono text-xs text-purple-400">frontend</div>
+            </div>
+            <div class="flex flex-wrap gap-2"><span class="skill-pill">React.js</span><span
+                class="skill-pill">Next.js</span><span class="skill-pill">JavaScript</span><span
+                class="skill-pill">HTML/CSS</span><span class="skill-pill">Tailwind</span></div>
+          </div>
+          <div class="card-base p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-2 h-2 rounded-full bg-green-400"></div>
+              <div class="mono text-xs text-green-400">database</div>
+            </div>
+            <div class="flex flex-wrap gap-2"><span class="skill-pill">PostgreSQL</span><span
+                class="skill-pill">MySQL</span><span class="skill-pill">SQL Query</span><span class="skill-pill">Data
+                Cleaning</span><span class="skill-pill">DB Design</span></div>
+          </div>
+          <div class="card-base p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-2 h-2 rounded-full bg-amber-400"></div>
+              <div class="mono text-xs text-amber-400">automation</div>
+            </div>
+            <div class="flex flex-wrap gap-2"><span class="skill-pill">Excel VBA</span><span
+                class="skill-pill">Macro</span><span class="skill-pill">Python (basic)</span><span
+                class="skill-pill">Bash</span><span class="skill-pill">Barcode-based Data Retrieval</span></div>
+          </div>
+          <div class="card-base p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-2 h-2 rounded-full bg-red-400"></div>
+              <div class="mono text-xs text-red-400">network & system</div>
+            </div>
+            <div class="flex flex-wrap gap-2"><span class="skill-pill">LAN/DNS/DHCP</span><span
+                class="skill-pill">VLAN</span><span class="skill-pill">OSPF/EIGRP</span><span
+                class="skill-pill">SMB</span><span class="skill-pill">OpenSSL</span><span
+                class="skill-pill">Linux</span><span class="skill-pill">Windows Server</span><span
+                class="skill-pill">Synology NAS</span><span class="skill-pill">Powershell/CMD</span></div>
+          </div>
+          <div class="card-base p-5">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-2 h-2 rounded-full bg-slate-400"></div>
+              <div class="mono text-xs text-slate-400">tools</div>
+            </div>
+            <div class="flex flex-wrap gap-2"><span class="skill-pill">Git / GitHub</span><span
+                class="skill-pill">Postman</span><span class="skill-pill">VS Code</span><span class="skill-pill">ConMas
+                iReporter</span><span class="skill-pill">Nginx</span><span class="skill-pill">Excel</span><span
+                class="skill-pill">Word</span><span class="skill-pill">PowerPoint</span><span
+                class="skill-pill">Canva</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="py-20 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-12 reveal">
+          <div class="section-num mb-2">04 — pengalaman</div>
+          <h2 class="font-display text-4xl font-700 text-white">Tempat saya pernah bekerja</h2>
+        </div>
+        <div class="space-y-4 reveal">
+
+          <div class="card-base card-accent p-6">
+            <div class="flex flex-wrap justify-between gap-2 mb-4">
+              <div>
+                <h3 class="font-display text-lg font-700 text-white">IT Staff — Kaizen Department</h3>
+                <div class="text-cyan-400 text-sm">PT. Hirose Electric Indonesia</div>
+              </div>
+              <div class="mono text-xs text-slate-500 text-right">Jan 2026 – sekarang<br />Bekasi, Indonesia</div>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Main PIC sistem ConMas (iReporter) yang digunakan
+                sebagai sistem data QA produksi — bertanggung jawab atas konfigurasi, troubleshooting, standardisasi
+                data, koordinasi vendor, serta pengembangan improvement berbasis kebutuhan operasional</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Membangun PM Monitoring System — waktu monitoring
+                turun dari 1–2 jam ke beberapa menit, risiko keterlambatan PM berkurang 70–80%</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Membangun Dashboard Produksi Real-Time (Express +
+                React + PostgreSQL) — waktu rekap berkurang 60–80%</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Sedang mengembangkan PM Monitor web (CI4) dan
+                memimpin R&D integrasi IoT Keyence</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Monitoring server harian, pengelolaan backup
+                (Synology NAS + HDD), data dictionary & standardisasi</li>
+            </ul>
+          </div>
+
+          <div class="card-base card-accent p-6">
+            <div class="flex flex-wrap justify-between gap-2 mb-4">
+              <div>
+                <h3 class="font-display text-lg font-700 text-white">Part-time IT Support</h3>
+                <div class="text-cyan-400 text-sm">PT. Geoho Tooling Indonesia — UNGGUL GROUP</div>
+              </div>
+              <div class="mono text-xs text-slate-500 text-right">2025 – sekarang</div>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Mendukung stabilitas infrastruktur IT perusahaan
+                melalui troubleshooting sistem, jaringan (LAN/DNS/DHCP), file sharing (SMB), serta backup dan recovery
+                data</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Instalasi & konfigurasi OS (Windows/Linux),
+                manajemen driver, serta perawatan dan upgrade perangkat keras (SSD, HDD, RAM)</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Memastikan ketersediaan sistem dan minimalisasi
+                downtime untuk mendukung operasional produksi perusahaan</li>
+            </ul>
+          </div>
+
+          <div class="card-base p-6">
+            <div class="flex flex-wrap justify-between gap-2 mb-4">
+              <div>
+                <h3 class="font-display text-lg font-700 text-white">Project Support Admin</h3>
+                <div class="text-cyan-400 text-sm">PT. DCT Total Solution — DCT GROUP</div>
+              </div>
+              <div class="mono text-xs text-slate-500 text-right">Okt – Des 2025</div>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Membangun otomasi Excel-VBA: auto-SPK generator,
+                laporan uang jalan otomatis, dashboard monitoring progress</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Merancang database 5-sheet terintegrasi menggunakan
+                XLOOKUP, LET, Named Range untuk integritas data lintas sheet</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Mendukung penjadwalan proyek dan S-curve monitoring
+                — pembaruan status pekerjaan secara berkala</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Menerjemahkan kondisi teknis lapangan menjadi
+                laporan operasional yang mudah dipahami non-teknis</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Koordinasi dengan field team, project PIC,
+                supervisor, dan klien untuk monitoring status dan follow-up kegiatan</li>
+            </ul>
+          </div>
+
+          <div class="card-base p-6">
+            <div class="flex flex-wrap justify-between gap-2 mb-4">
+              <div>
+                <h3 class="font-display text-lg font-700 text-white">Guru</h3>
+                <div class="text-cyan-400 text-sm">SD Islam Al Anshar</div>
+              </div>
+              <div class="mono text-xs text-slate-500 text-right">2021 – 2025</div>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Membangun sistem input insentif PAT berbasis web
+                (PHP + MySQL) dengan multi-role auth — error berkurang ±30%</li>
+              <li class="flex items-start gap-2 text-sm text-slate-400"><span
+                  class="text-cyan-500 mt-0.5 flex-shrink-0">▸</span>Mengelola data akademik dan dokumentasi akreditasi
+                BAN-S/M</li>
+            </ul>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certificates" class="py-20 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="mb-12 reveal">
+          <div class="section-num mb-2">05 — sertifikasi</div>
+          <h2 class="font-display text-4xl font-700 text-white">Kredensial</h2>
+          <p class="text-slate-400 text-sm mt-2">klik sertifikat untuk melihat ukuran penuh</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 reveal">
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/15.CCNA-2.jpg" alt="CCNA" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">CCNA: Switching, Routing & Wireless</div>
+              <div class="text-slate-500 text-xs mono mt-1">Cisco NetAcad · Sep 2025<a
+                  href="https://www.credly.com/badges/3ccdcad4-b5bd-4553-af2d-8944a5846b85/linked_in_profile"
+                  target="_blank" onclick="event.stopPropagation()"
+                  class="inline-block mt-1 text-xs mono text-cyan-400 hover:underline">verify →</a>
+              </div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/14.E-time.png" alt="E-TIME 2025" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Networking Competition E-TIME 2025</div>
+              <div class="text-slate-500 text-xs mono mt-1">Politeknik Negeri Jakarta · Jul 2025</div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/10.SertifikatKelulusanBelajarBack-EndDeveloper.png" alt="Back-End Developer"
+              loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Back-End Developer Bootcamp</div>
+              <div class="text-slate-500 text-xs mono mt-1">Dicoding × DBS Foundation · Okt 2023</div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/8.BelajarFundamentalBackEnd.png" alt="Fundamental Back-End" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Fundamental Aplikasi Back-End</div>
+              <div class="text-slate-500 text-xs mono mt-1">Dicoding · Sep 2023<a
+                  href="https://www.dicoding.com/certificates/NVP78O0NVXR0" target="_blank"
+                  onclick="event.stopPropagation()"
+                  class="inline-block mt-1 text-xs mono text-cyan-400 hover:underline">verify →</a>
+              </div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/9.Architecting-on-AWS.jpg" alt="AWS" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Architecting on AWS</div>
+              <div class="text-slate-500 text-xs mono mt-1">Dicoding · Okt 2023<a
+                  href="https://www.dicoding.com/certificates/MRZMLO66KXYQ" target="_blank"
+                  onclick="event.stopPropagation()"
+                  class="inline-block mt-1 text-xs mono text-cyan-400 hover:underline">verify →</a>
+              </div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/13.IT-Esse.png" alt="IT Essentials" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">IT Essentials: PC Hardware & Software</div>
+              <div class="text-slate-500 text-xs mono mt-1">Cisco NetAcad · Mar 2024</div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/6.CloudPractitionerEssentiais.jpg" alt="Cloud Practitioner" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Cloud Practitioner Essentials (AWS)</div>
+              <div class="text-slate-500 text-xs mono mt-1">Dicoding · Mei 2023<a
+                  href="https://www.dicoding.com/certificates/N9ZO6OYJYXG5" target="_blank"
+                  onclick="event.stopPropagation()"
+                  class="inline-block mt-1 text-xs mono text-cyan-400 hover:underline">verify →</a>
+              </div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/7.BelajarMembuatAplikasiBack-EndUntukPemula.jpg" alt="Back-End Pemula"
+              loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Aplikasi Back-End untuk Pemula</div>
+              <div class="text-slate-500 text-xs mono mt-1">Dicoding · Mei 2023<a
+                  href="https://www.dicoding.com/certificates/ERZRG1K3QPYV" target="_blank"
+                  onclick="event.stopPropagation()"
+                  class="inline-block mt-1 text-xs mono text-cyan-400 hover:underline">verify →</a>
+              </div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/11.BelajarDasarVisualisasiData.png" alt="Visualisasi Data" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Dasar Visualisasi Data</div>
+              <div class="text-slate-500 text-xs mono mt-1">Dicoding · Apr 2024<a
+                  href="https://www.dicoding.com/certificates/1OP8WLMN8XQK" target="_blank"
+                  onclick="event.stopPropagation()"
+                  class="inline-block mt-1 text-xs mono text-cyan-400 hover:underline">verify →</a>
+              </div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/12.MulaiPemrogramandenganPython.png" alt="Python" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Pemrograman dengan Python</div>
+              <div class="text-slate-500 text-xs mono mt-1">Dicoding · Mei 2024<a
+                  href="https://www.dicoding.com/certificates/72ZDV8Y4QZYW" target="_blank"
+                  onclick="event.stopPropagation()"
+                  class="inline-block mt-1 text-xs mono text-cyan-400 hover:underline">verify →</a>
+              </div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/5.dasarPemrogramanJavaScript.jpg" alt="JavaScript" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Dasar Pemrograman JavaScript</div>
+              <div class="text-slate-500 text-xs mono mt-1">Dicoding · Mei 2023<a
+                  href="https://www.dicoding.com/certificates/1OP801Q7LXQK" target="_blank"
+                  onclick="event.stopPropagation()"
+                  class="inline-block mt-1 text-xs mono text-cyan-400 hover:underline">verify →</a>
+              </div>
+            </div>
+          </div>
+          <div class="cert-card" onclick="openCert(this)">
+            <img src="assets/img/3.pengenalanKeLogikaPemrograman.jpg" alt="Logic Programming" loading="lazy" />
+            <div class="cert-info">
+              <div class="text-white text-xs font-display font-600">Pengenalan ke Logika Pemrograman</div>
+              <div class="text-slate-500 text-xs mono mt-1">Dicoding · Jul 2022<a
+                  href="https://www.dicoding.com/certificates/QLZ9KN81EZ5D" target="_blank"
+                  onclick="event.stopPropagation()"
+                  class="inline-block mt-1 text-xs mono text-cyan-400 hover:underline">verify →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-20 px-4 sm:px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="max-w-2xl mx-auto text-center reveal">
+          <div class="section-num mb-2">06 — kontak</div>
+          <h2 class="font-display text-4xl font-700 text-white mb-4">Mari membangun sesuatu.</h2>
+          <p class="text-slate-400 mb-10">Terbuka untuk posisi full-time, kolaborasi, dan freelance — terutama di mana
+            IT bertemu operasional.</p>
+        </div>
+        <div class="max-w-2xl mx-auto reveal">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <a href="mailto:hanifmutaz@gmail.com"
+              class="card-base p-4 text-center hover:border-cyan-500/30 transition-colors no-underline group"
+              style="text-decoration:none;">
+              <div class="text-2xl mb-2">✉️</div>
+              <div class="text-xs text-slate-400 group-hover:text-slate-300">hanifmutaz@gmail.com</div>
+            </a>
+            <a href="https://wa.me/6285186662543" target="_blank"
+              class="card-base p-4 text-center hover:border-cyan-500/30 transition-colors no-underline group"
+              style="text-decoration:none;">
+              <div class="text-2xl mb-2">💬</div>
+              <div class="text-xs text-slate-400 group-hover:text-slate-300">+62 851 8666 2543</div>
+            </a>
+            <a href="https://linkedin.com/in/" target="_blank"
+              class="card-base p-4 text-center hover:border-cyan-500/30 transition-colors no-underline group"
+              style="text-decoration:none;">
+              <div class="text-2xl mb-2">💼</div>
+              <div class="text-xs text-slate-400 group-hover:text-slate-300">linkedin.com/in/hanifmutaz</div>
+            </a>
+            <a href="https://github.com/hanifmutaz" target="_blank"
+              class="card-base p-4 text-center hover:border-cyan-500/30 transition-colors no-underline group"
+              style="text-decoration:none;">
+              <div class="text-2xl mb-2">🐙</div>
+              <div class="text-xs text-slate-400 group-hover:text-slate-300">github.com/hanifmutaz</div>
+            </a>
+          </div>
+          <div class="card-base p-6">
+            <div class="space-y-4">
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div><label class="text-xs text-slate-400 mb-1 block">nama</label><input type="text"
+                    placeholder="Nama kamu" class="inp" /></div>
+                <div><label class="text-xs text-slate-400 mb-1 block">email</label><input type="email"
+                    placeholder="email@kamu.com" class="inp" /></div>
+              </div>
+              <div><label class="text-xs text-slate-400 mb-1 block">pesan</label><textarea rows="4"
+                  placeholder="Apa yang ingin kamu diskusikan?" class="inp"></textarea></div>
+              <button id="sendBtn" class="btn-primary w-full justify-center">
+                kirim pesan
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-white/05 py-8 px-4">
+    <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4 text-xs text-slate-600">
+      <div class="mono">© <span id="year"></span> Hanif Mu'taz Noor Afiyf</div>
+      <div class="mono">dibangun dengan niat, bukan template.</div>
+    </div>
+  </footer>
+
+  <!-- CERT MODAL -->
+  <div id="certModal" onclick="closeCert(event)">
+    <div style="position:relative;max-width:900px;width:100%;">
+      <button onclick="closeCertBtn()"
+        style="position:absolute;top:-16px;right:-16px;width:36px;height:36px;border-radius:50%;background:#22d3ee;color:#060810;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;z-index:10;font-weight:bold;">✕</button>
+      <img id="modalImg" src="" alt="" style="width:100%;border-radius:12px;border:1px solid rgba(34,211,238,0.2);" />
+      <div id="modalCaption"
+        style="text-align:center;margin-top:12px;font-family:'DM Mono';font-size:12px;color:#64748b;"></div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const ro = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          ro.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => ro.observe(el));
+
+    // cert modal
+    function openCert(card) {
+      const img = card.querySelector('img');
+      const caption = card.querySelector('.cert-info div').textContent;
+      document.getElementById('modalImg').src = img.src;
+      document.getElementById('modalImg').alt = img.alt;
+      document.getElementById('modalCaption').textContent = caption;
+      document.getElementById('certModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCert(e) { if (e.target === document.getElementById('certModal')) closeCertBtn(); }
+    function closeCertBtn() { document.getElementById('certModal').classList.remove('open'); document.body.style.overflow = ''; }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCertBtn(); });
+
+    // nav active
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+      document.querySelectorAll('.navlink').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+      });
+    }, { passive: true });
+
+    // send btn
+    document.getElementById('sendBtn').addEventListener('click', () => {
+      const btn = document.getElementById('sendBtn');
+      btn.innerHTML = '✓ terkirim!';
+      btn.style.background = '#34d399';
+      setTimeout(() => {
+        btn.innerHTML = 'kirim pesan <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+        btn.style.background = '';
+      }, 2500);
+    });
+  </script>
+</body>
+
+</html>
